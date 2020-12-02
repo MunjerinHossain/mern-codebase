@@ -24,27 +24,31 @@ const create = (form) => {
 	}
   }
   
-  const read = (params, credentials) => {
-    return fetch('/api/form/' + params.formId, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + credentials.t
-      }
-    }).then((response) => {
-      return response.json()
-    }).catch((err) => console.log(err))
+  const read = async (params, credentials, signal) => {
+    try {
+      let response = await fetch('/api/form/' + params.formId, {
+        method: 'GET',
+        signal: signal,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + credentials.t
+        }
+      })
+      return await response.json()
+    } catch(err) {
+      console.log(err)
+    }
   }
   
   const update = (params, credentials, user) => {
-    return fetch('/api/form/' + params.formId, {
+    return fetch('/api/form/' + formId, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + credentials.t
       },
-      body: user
+      body: form
     }).then((response) => {
       return response.json()
     }).catch((err) => {
@@ -53,7 +57,7 @@ const create = (form) => {
   }
   
   const remove = (params, credentials) => {
-    return fetch('/api/form/' + params.formId, {
+    return fetch('/api/form/' + formId, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
