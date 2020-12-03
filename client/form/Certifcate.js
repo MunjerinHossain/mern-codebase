@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import { Link } from "react-router-dom";
-import { readAllForm, read } from "./api-form.js";
+import { readAllForm, read, readLastUser } from "./api-form.js";
 import Divider from "@material-ui/core/Divider";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
@@ -45,22 +45,22 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     maxHeight: "100%",
   },
-  text:{
-      textAlign:'center',
-      marginBottom:'10px',
+  text: {
+    textAlign: "center",
+    marginBottom: "10px",
   },
-  textBody:{
-    textAlign:'center',
-    margin:'10px',
-    fontWeight:'bold'
-},
-textLast:{
-    textAlign:'center',
-    margin:'10px',
-    fontWeight:'bold',
-    color:'red',
-    marginTop:'25px'
-}
+  textBody: {
+    textAlign: "center",
+    margin: "10px",
+    fontWeight: "bold",
+  },
+  textLast: {
+    textAlign: "center",
+    margin: "10px",
+    fontWeight: "bold",
+    color: "red",
+    marginTop: "25px",
+  },
 }));
 
 export default function Certificates({ match }) {
@@ -71,33 +71,15 @@ export default function Certificates({ match }) {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    readAllForm(signal).then((data) => {
+    readLastUser(signal).then((data) => {
       if (data && data.error) {
         console.log(data.error);
       } else {
-        console.log("data all", data);
+        console.log("data certificate", data);
         setForm(data);
       }
     });
-
-    read(
-      {
-        formId: match.params.formId,
-      },
-      signal
-    ).then((data) => {
-      if (data && data.error) {
-        // setRedirectToSignin(true);
-      } else {
-        console.log("read one", data);
-        setForm(data);
-      }
-    });
-
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [match.params.formId]);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -105,19 +87,27 @@ export default function Certificates({ match }) {
         <Typography variant="h5" className={classes.text}>
           MERN Codebase
         </Typography>
-        <Divider/>
+        <Divider />
         <Grid container spacing={2}>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography variant="h6" className={classes.textBody}>
-                  {form.name}
-                </Typography>
+                {form.map((item, i) => {
+                  return (
+                    <span key={i}>
+                      <Typography variant="h6" className={classes.textBody}>
+                        {item.name}
+                      </Typography>
+                    </span>
+                  );
+                })}
+
                 <Typography className={classes.text}>
-                  Thank you for siging up and support us! We really appriciate your contribution.
+                  Thank you for siging up and support us! We really appriciate
+                  your contribution.
                 </Typography>
                 <Typography className={classes.textLast}>
-                 Your contribution will save someone's life.
+                  Your contribution will save someone's life.
                 </Typography>
               </Grid>
             </Grid>

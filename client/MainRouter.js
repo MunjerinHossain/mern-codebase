@@ -22,7 +22,7 @@ const MainRouter = () => {
         <Route path="/user/:userId" component={Profile}/> */}
         <Route exact path="/" component={Home}/>
         <Route exact path="/form/new" component={Forms}/>
-        <Route path="/form/:formId" component={Certificate}/>
+        <Route path="/form/" component={Certificate}/>
       </Switch>
     </div>)
 }

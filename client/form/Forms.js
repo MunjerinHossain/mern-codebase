@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
-import { create, read } from "./api-form.js";
+import { create, read, readLastUser } from "./api-form.js";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -52,37 +52,19 @@ export default function Form({match}) {
     contact: "",
     email: "",
     occupation: "",
+    count: 0,
     error: "",
     redirectToReferrer: false,
   });
   const [form, setForm] = useState([]);
+  const [count, setCount] = useState(0);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
-
-    useEffect(() => {
-      const abortController = new AbortController();
-      const signal = abortController.signal;
-
-      read(
-        {
-          formId: match.params.formId,
-        },
-        signal
-      ).then((data) => {
-        if (data && data.error) {
-          // setRedirectToSignin(true);
-        } else {
-          console.log("read one", data);
-          setValues(data);
-        }
-      });
-
-      return function cleanup() {
-        abortController.abort();
-      };
-    }, [match.params.formId]);
+  const handleCount = (name) => (event) => {
+    setCount({ ...count, [name]: event.target.value, count: count+1});
+  };
 
   const clickSubmit = () => {
     const form = {
@@ -96,11 +78,45 @@ export default function Form({match}) {
         setRedirectToSignin(true);
         setValues({ ...values, error: data.error });
       } else {
-        setValues({ ...values, error: "", redirectToReferrer: true });
+        setValues({ ...values, error: ""});
         console.log("form", data);
+        console.log("count", data);
       }
     });
   };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    // read(
+    //   {
+    //     formId: match.params.formId,
+    //   },
+    //   signal
+    // ).then((data) => {
+    //   if (data && data.error) {
+    //     // setRedirectToSignin(true);
+    //   } else {
+    //     console.log("read one", data);
+    //     setValues(data);
+    //   }
+    // });
+
+    readLastUser(signal).then((data) => {
+      if (data && data.error) {
+        console.log(data.error);
+      } else {
+        console.log("data one", data);
+        setForm(data);
+        console.log("read one", data);
+      }
+    });
+
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, []);
 
   //   const { from } = props.location.state || {
   //     from: {
@@ -111,9 +127,9 @@ export default function Form({match}) {
   //   if (redirectToReferrer) {
   //     return <Redirect to={from} />;
   //   }
-  if (values.redirectToReferrer) {
-    return <Redirect to={"/form/" + values._id} />;
-  }
+  // if (values.redirectToReferrer) {
+  //   return <Redirect to={"/form/" + form._id} />;
+  // }
 
   return (
     <div>
@@ -179,16 +195,17 @@ export default function Form({match}) {
           )}
         </CardContent>
         <CardActions>
-          {/* <Link to={"/form/single/" + form}> */}
+          <Link to="/form/">
           <Button
             color="primary"
             variant="contained"
             onClick={clickSubmit}
             className={classes.submit}
+            // onChange={handleCount('count')}
           >
             Submit
           </Button>
-          {/* </Link> */}
+          </Link>
         </CardActions>
       </Card>
       <Dialog open={values.open} disableBackdropClick={true}>

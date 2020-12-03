@@ -80,11 +80,49 @@ const remove = async (req, res) => {
   }
 }
 
+const readTotalUsers = async (req, res) => {
+  try {
+    let totalUsers = await Form.aggregate([{
+      "$group": {
+        "total": {
+          "$sum": 1
+        },
+        "_id": 0
+      }
+    },
+  ]);
+    console.log("totalUsers", totalUsers);
+    res.json(totalUsers);
+  } catch (error) {
+    console.log("error", error);
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(error),
+    });
+  }
+}
+
+const readLastDocument = async (req, res) => {
+  try {
+    let readDoc = await Form.find({}).sort({_id:-1}).limit(1).exec()
+    console.log("readDoc", readDoc);
+    res.json(readDoc);
+  } catch (error) {
+    console.log("error", error);
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(error),
+    });
+  }
+}
+
+
+
 export default {
   create,
   formByID,
   read,
   list,
   remove,
-  update
+  update,
+  readTotalUsers,
+  readLastDocument
 }

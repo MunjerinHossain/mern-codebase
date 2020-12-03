@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -7,6 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import { readTotalUser } from "./../form/api-form";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -35,45 +39,77 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     textAlign: "center",
-    padding:'10px',
-    margin:'20px'
+    padding: "10px",
+    margin: "20px",
   },
 }));
 
 export default function Home() {
   const classes = useStyles();
+  const [totaluser, setTotaluser] = useState([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    readTotalUser(signal).then((data) => {
+      if (data && data.error) {
+      } else {
+        setTotaluser(data);
+        console.log("total users", data);
+      }
+    });
+
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, []);
+
   return (
     <>
-    <Card className={classes.card}>
-      <Typography variant="h6" className={classes.title}>
-        Home Page
-      </Typography>
-      <CardContent>
-        <Typography type="body1" component="p">
-          This is a test app for web developer recruitment. In this app, you can
-          fill up a form and get certificate instantly. You can also share your
-          certificate to your social app. Please do sign up by clicking "Sign
-          Up" button. Thank You!
+      <Card className={classes.card}>
+        <Typography variant="h6" className={classes.title}>
+          Home Page
         </Typography>
-        <Typography type="body1" component="p">
-          Total Users:
-        </Typography>
-        <Divider />
-      </CardContent>
-      <Link to="/form/new">
-        <Button color="primary" variant="contained" className={classes.submit}>
-          Do Support
-        </Button>
-      </Link>
-    </Card>
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography type="body1" component="p">
-          Total Users:
-        </Typography>
-        <Divider />
-      </CardContent>
-    </Card>
+        <CardContent>
+          <Typography type="body1" component="p">
+            This is a test app for web developer recruitment. In this app, you
+            can fill up a form and get certificate instantly. You can also share
+            your certificate to your social app. Please do sign up by clicking
+            "Sign Up" button. Thank You!
+          </Typography>
+          <Divider />
+        </CardContent>
+        <Link to="/form/new">
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.submit}
+          >
+            Do Support
+          </Button>
+        </Link>
+      </Card>
+
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography type="body1" component="p">
+            Total Users:
+          </Typography>
+
+          {/* {totaluser.map((item, index) => {
+           return(
+             <span key={index}>
+
+                {item.name}
+
+             </span>
+           ) 
+           })} */}
+
+          <Divider />
+        </CardContent>
+      </Card>
     </>
   );
 }
