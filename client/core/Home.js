@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: "10px",
     margin: "20px",
-    left:'30%'
+    left:'40%'
   },
 }));
 
