@@ -87,7 +87,7 @@ export default function Home() {
             variant="contained"
             className={classes.submit}
           >
-            Do Support
+           Sign Up
           </Button>
         </Link>
       </Card>

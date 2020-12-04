@@ -115,7 +115,7 @@ export default function Form({match}) {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant="h6" className={classes.title}>
-            Sign Up
+            Create Form
           </Typography>
           <TextField
             id="name"
