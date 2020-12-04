@@ -42,7 +42,7 @@ export default function Share(props) {
   return (
     <>
       <FacebookShareButton
-        url={"http://localhost:3000/form"}
+        url={"https://mern-skill.herokuapp.com/form"}
         quote={"MERN Skill Certificate"}
         hashtag="#MernSkill"
         className={classes.button}
