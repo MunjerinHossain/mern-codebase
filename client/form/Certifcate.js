@@ -16,6 +16,7 @@ import { readAllForm, read, readLastUser } from "./api-form.js";
 import Divider from "@material-ui/core/Divider";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Grid from "@material-ui/core/Grid";
+import Share from "./SocialMedia"
 
 const useStyles = makeStyles((theme) => ({
   //   root: theme.mixins.gutters({
@@ -84,8 +85,8 @@ export default function Certificates({ match }) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography variant="h5" className={classes.text}>
-          MERN Codebase
+        <Typography variant="h4" className={classes.text}>
+         Certificate
         </Typography>
         <Divider />
         <Grid container spacing={2}>
@@ -114,6 +115,7 @@ export default function Certificates({ match }) {
           </Grid>
         </Grid>
       </Paper>
+      <Share/>
     </div>
   );
 }

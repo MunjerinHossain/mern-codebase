@@ -9,6 +9,7 @@ import Profile from './user/Profile'
 import PrivateRoute from './auth/PrivateRoute'
 import Menu from './core/Menu'
 import Forms from './form/Forms'
+import Certificate from './form/Certifcate'
 import Pdf from './form/Pdf'
 const MainRouter = () => {
     return (<div>
@@ -22,8 +23,8 @@ const MainRouter = () => {
         <Route path="/user/:userId" component={Profile}/> */}
         <Route exact path="/" component={Home}/>
         <Route exact path="/form/new" component={Forms}/>
-        {/* <Route path="/form/" component={Certificate}/> */}
-        <Route path="/form/" component={Pdf}/>
+        <Route path="/form/" component={Certificate}/>
+        {/* <Route path="/form/" component={Pdf}/> */}
       </Switch>
     </div>)
 }

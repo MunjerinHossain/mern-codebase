@@ -21,7 +21,7 @@ const Menu = withRouter(({ history }) => (
       color="inherit"
       style={{ margin: "20px", paddingLeft: "50px" }}
     >
-      MERN CodeBase
+      MERN Skill
     </Typography>
 
     <AppBar position="static">

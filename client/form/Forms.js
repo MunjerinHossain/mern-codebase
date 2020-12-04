@@ -89,20 +89,6 @@ export default function Form({match}) {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    // read(
-    //   {
-    //     formId: match.params.formId,
-    //   },
-    //   signal
-    // ).then((data) => {
-    //   if (data && data.error) {
-    //     // setRedirectToSignin(true);
-    //   } else {
-    //     console.log("read one", data);
-    //     setValues(data);
-    //   }
-    // });
-
     readLastUser(signal).then((data) => {
       if (data && data.error) {
         console.log(data.error);
@@ -117,19 +103,6 @@ export default function Form({match}) {
       abortController.abort();
     };
   }, []);
-
-  //   const { from } = props.location.state || {
-  //     from: {
-  //       pathname: "/form/" + formId,
-  //     },
-  //   };
-  //   const { redirectToReferrer } = values;
-  //   if (redirectToReferrer) {
-  //     return <Redirect to={from} />;
-  //   }
-  // if (values.redirectToReferrer) {
-  //   return <Redirect to={"/form/" + form._id} />;
-  // }
 
   return (
     <div>

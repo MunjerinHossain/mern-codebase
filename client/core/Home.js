@@ -94,9 +94,9 @@ export default function Home() {
       <Card className={classes.card}>
         <CardContent>
           <Typography type="body1" component="p">
-            Total Users:
+            Total Users: 
           </Typography>
-
+          {totaluser.total}
           {/* {totaluser.map((item, index) => {
            return(
              <span key={index}>
