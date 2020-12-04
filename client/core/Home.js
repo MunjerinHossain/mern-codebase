@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-  const [totaluser, setTotaluser] = useState([]);
+  const [totalUser, setTotalUser] = useState();
+  const [user, setUser] = useState()
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -56,8 +57,10 @@ export default function Home() {
     readTotalUser(signal).then((data) => {
       if (data && data.error) {
       } else {
-        setTotaluser(data);
+        setTotalUser(data);
         console.log("total users", data);
+        // setUser(data)
+        // console.log("users", data);
       }
     });
 
@@ -94,20 +97,9 @@ export default function Home() {
 
       <Card className={classes.card}>
         <CardContent>
-          <Typography type="body1" component="p">
-            Total Users: {totaluser.total}
+          <Typography variant="h6">
+            Total Users: {totalUser}
           </Typography>
-          
-          {/* {totaluser.map((item, index) => {
-           return(
-             <span key={index}>
-
-                {item.name}
-
-             </span>
-           ) 
-           })} */}
-
           <Divider />
         </CardContent>
       </Card>

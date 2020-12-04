@@ -82,17 +82,21 @@ const remove = async (req, res) => {
 
 const readTotalUsers = async (req, res) => {
   try {
-    let totalUsers = await Form.aggregate([{
-      "$group": {
-        "total": {
-          "$sum": 1
-        },
-        "_id": 0
-      }
-    },
-  ]);
-    console.log("totalUsers", totalUsers);
-    res.json(totalUsers);
+  //   let totalUsers = await Form.aggregate([{
+  //     "$group": {
+  //       "total": {
+  //         "$sum": 1
+  //       },
+  //       "_id": 0
+  //     }
+  //   },
+  // ]);
+  //   console.log("totalUsers", totalUsers);
+  //   res.json(totalUsers);
+
+  let totalUsers = await Form.count()
+  console.log("totalUsers", totalUsers);
+  res.json(totalUsers)
   } catch (error) {
     console.log("error", error);
     return res.status(400).json({
