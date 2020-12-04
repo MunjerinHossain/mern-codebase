@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: "10px",
     margin: "20px",
+    left:'30%'
   },
 }));
 
@@ -94,9 +95,9 @@ export default function Home() {
       <Card className={classes.card}>
         <CardContent>
           <Typography type="body1" component="p">
-            Total Users: 
+            Total Users: {totaluser.total}
           </Typography>
-          {totaluser.total}
+          
           {/* {totaluser.map((item, index) => {
            return(
              <span key={index}>

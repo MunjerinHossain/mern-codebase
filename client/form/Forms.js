@@ -41,8 +41,14 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: "auto",
-    marginBottom: theme.spacing(2),
+    textAlign: "center",
+    padding: "10px",
   },
+  select:{
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 300,
+  }
 }));
 
 export default function Form({match}) {
@@ -139,15 +145,15 @@ export default function Form({match}) {
             margin="normal"
           />
           <br />
+          <br/>
           <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label" color="primary">
-              Occupation
-            </InputLabel>
+            <InputLabel id="demo-simple-select-label" color="primary">Occupation</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={values.occupation}
               onChange={handleChange("occupation")}
+              className={classes.select}
             >
               <MenuItem value={"Student"}>Student</MenuItem>
               <MenuItem value={"Job"}>Job</MenuItem>
@@ -167,19 +173,18 @@ export default function Form({match}) {
             </Typography>
           )}
         </CardContent>
-        <CardActions>
+        {/* <CardActions> */}
           <Link to="/form/">
           <Button
             color="primary"
             variant="contained"
             onClick={clickSubmit}
             className={classes.submit}
-            // onChange={handleCount('count')}
           >
             Submit
           </Button>
           </Link>
-        </CardActions>
+        {/* </CardActions> */}
       </Card>
       <Dialog open={values.open} disableBackdropClick={true}>
         <DialogTitle>New Account</DialogTitle>
