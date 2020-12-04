@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     marginBottom: "20px",
     width: "159px",
-    marginTop: "30px",
+    marginTop:'30px'
   },
-  text: {
-    fontSize: "15px",
+  text:{
+      fontSize:'15px',
     //   margin:'auto'
-  },
+  }
 }));
 
 export default function Share(props) {
@@ -41,7 +41,7 @@ export default function Share(props) {
 
   return (
     <>
-      {/* <FacebookShareButton
+      <FacebookShareButton
         url={"https://mern-skill.herokuapp.com/form"}
         quote={"MERN Skill Certificate"}
         hashtag="#MernSkill"
@@ -49,9 +49,8 @@ export default function Share(props) {
       >
         <Typography className={classes.text}>Share to:</Typography>
         <FacebookIcon size={36} className={classes.facebookShare} />
-      </FacebookShareButton> */}
-      <Typography className={classes.text}>Share to:</Typography>
-      <FacebookIcon size={36} className={classes.facebookShare} />
+      </FacebookShareButton>
+      
     </>
   );
 }
