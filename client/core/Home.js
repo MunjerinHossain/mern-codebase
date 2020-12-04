@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
   const classes = useStyles();
   const [totalUser, setTotalUser] = useState();
-  const [user, setUser] = useState()
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -59,8 +58,6 @@ export default function Home() {
       } else {
         setTotalUser(data);
         console.log("total users", data);
-        // setUser(data)
-        // console.log("users", data);
       }
     });
 
